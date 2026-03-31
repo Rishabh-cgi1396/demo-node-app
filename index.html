@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DevOps Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Azure VM Deployment</h1>
+        <p>Simple Web App Running Successfully</p>
+        <button onclick="checkHealth()">Check Health</button>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        function checkHealth() {
+            fetch('/health')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('status').innerText = data.status;
+                });
+        }
+    </script>
+</body>
+</html>
