@@ -4,19 +4,23 @@ const path = require('path');
 
 const server = http.createServer((req, res) => {
 
+    // Serve HTML
     if (req.url === '/') {
-        const filePath = path.join(__dirname, 'index.html');
-        fs.readFile(filePath, (err, content) => {
-            if (err) {
-                res.writeHead(500);
-                res.end("Error loading page");
-            } else {
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.end(content);
-            }
+        fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(data);
         });
     }
 
+    // Serve CSS
+    else if (req.url === '/style.css') {
+        fs.readFile(path.join(__dirname, 'style.css'), (err, data) => {
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.end(data);
+        });
+    }
+
+    // Health API
     else if (req.url === '/health') {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ status: "Healthy ✅" }));
